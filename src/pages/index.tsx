@@ -1,5 +1,5 @@
 // src/pages/timeline.tsx
-
+import { NextPage } from 'next';
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import Head from 'next/head';
