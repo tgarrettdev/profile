@@ -38,8 +38,8 @@ const AnimatedSplash = () => {
         </svg>
       </div>
       <div className="mx-auto max-w-screen-sm">
-        <h1 className="text-5xl font-bold my-6 color-white">Hi, I'm Tom Garrett</h1>
-        <p className="text-xl color-white">I'm a Full-Stack Developer with a passion for creating efficient and scalable web applications. Welcome to my professional portfolio!</p>
+        <h1 className="text-5xl font-bold my-6 color-white">Hi, Im Tom Garrett</h1>
+        <p className="text-xl color-white">Im a Full-Stack Developer with a passion for creating efficient and scalable web applications. Welcome to my professional portfolio!</p>
       </div>
     </div>
   );
