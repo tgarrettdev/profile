@@ -6,9 +6,12 @@ interface Skill {
   level: number;
 }
 
-const SkillsComponent: React.FC<{ skills: Record<string, Skill[]> }> = ({ skills }) => {
+interface SkillsProps {
+  skills: Record<string, Skill[]>;
+}
+
+const SkillsComponent: React.FC<SkillsProps> = ({ skills }) => {
   const skillsRef = useRef<HTMLDivElement[]>([]);
-  let globalIndex = 0; // Global index for all skills
 
   useEffect(() => {
     skillsRef.current.forEach((skill, index) => {
@@ -22,10 +25,9 @@ const SkillsComponent: React.FC<{ skills: Record<string, Skill[]> }> = ({ skills
         });
       }
     });
-  }, []);
+  }, [skills]);
 
-  const renderSkillLevel = (level: number) => {
-    const skillIndex = globalIndex++; // Use and increment the global index
+  const renderSkillLevel = (level: number, skillIndex: number) => {
     return (
       <div
         className="skill-dots"
@@ -35,7 +37,7 @@ const SkillsComponent: React.FC<{ skills: Record<string, Skill[]> }> = ({ skills
       >
         {[...Array(10)].map((_, index) => (
           <div
-            key={index}
+            key={`${skillIndex}-${index}`} // Unique key for each dot
             className={`dot ${index < level ? 'filled' : ''}`}
           ></div>
         ))}
@@ -48,13 +50,13 @@ const SkillsComponent: React.FC<{ skills: Record<string, Skill[]> }> = ({ skills
       <div className='container mx-auto color-onyx'>
         <div className='text-center'><h2>SKILLS</h2></div>
         <div className="skills-columns">
-          {Object.entries(skills).map(([category, skillList], index) => (
-            <div key={category} className={`skills-section ${index % 2 === 0 ? 'left' : 'right'}`}>
+          {Object.entries(skills).map(([category, skillList], categoryIndex) => (
+            <div key={category} className={`skills-section ${categoryIndex % 2 === 0 ? 'left' : 'right'}`}>
               <h3>{category}</h3>
-              {skillList.map((skill, index) => (
+              {skillList.map((skill, skillIndex) => (
                 <div key={skill.name} className="skill">
                   <span className="skill-name">{skill.name}</span>
-                  {renderSkillLevel(skill.level)}
+                  {renderSkillLevel(skill.level, categoryIndex * 100 + skillIndex)} 
                 </div>
               ))}
             </div>
